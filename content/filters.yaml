@@ -1,0 +1,9 @@
+phases:
+  - PoC
+  - Pilot
+  - Productie
+
+levels:
+  - Operationeel
+  - Tactisch
+  - Bestuurlijk

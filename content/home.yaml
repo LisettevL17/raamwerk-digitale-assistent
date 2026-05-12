@@ -1,0 +1,34 @@
+title: Digitale Assistenten in Overheidsdienstverlening
+eyebrow: Raamwerk
+lede:
+  - >
+    Dit raamwerk biedt publieke organisaties houvast om hun digitale assistenten aantoonbaar op een verantwoorde en toekomstbestendige manier te ontwikkelen en te beheren.
+  - >
+    Het omvat 13 domeinen: vier fundamentele randvoorwaarden en negen onderdelen die samen de Digitale Assistent vormen. Samen bieden zij een gecureerd overzicht van alle relevante thema’s, waarbij ook inzichten en informatie uit bestaande, gezaghebbende bronnen zijn meegenomen, aangevuld met praktische handvatten. 
+    Hierdoor krijgen organisaties duidelijk inzicht in alle relevante aandachtspunten én in hoe zij deze in de praktijk op een verantwoorde en effectieve manier kunnen realiseren.
+    Op deze manier helpt het raamwerk organisaties om digitale assistenten sneller, beter en consistenter te ontwikkelen en in te zetten, zonder telkens het wiel opnieuw uit te vinden.
+
+lede_sub: >
+  Bedoeld voor beleidsmakers, projectleiders, IT-professionals en bestuurders die grip
+  willen krijgen op AI in publieke dienstverlening.
+diagram_hint: >
+  Klik op een segment om de fundamentele domeinen te bekijken, of op het midden voor de domeinen die samen de digitale assistent vormen. 
+
+rings_section:
+  eyebrow: Hoe te lezen
+  heading: Vier onderdelen, één samenhangend geheel
+  description: >
+    Van de technische kern naar bestuurlijke sturing. Elk domein staat in één ring,
+    maar werkt door op de andere.
+
+fundamenten_section:
+  label: Fundamenten
+  description: >
+    Zonder deze vier fundamenten is een verantwoorde digitale assistent niet mogelijk.
+    Ze vormen de basis waarop alle andere domeinen rusten.
+
+assistent_section:
+  label: Digitale Assistent
+  description: >
+    De onderdelen die samen de digitale assistent vormen — van prompt en context tot
+    kwaliteit, veiligheid en gebruikerservaring.

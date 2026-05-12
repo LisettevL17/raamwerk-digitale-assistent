@@ -1,0 +1,301 @@
+- id: visie-digitale-autonomie
+  title: Visie Digitale Autonomie en Soevereiniteit
+  categorie: Beleidskader
+  omschrijving: >
+    Visiedocument (december 2025) van het kabinet dat het principe 'open waar kan,
+    beschermen waar moet' uitwerkt voor de digitale overheid. Het beleidskader voor
+    alle infrastructuurkeuzes.
+  url: https://www.rijksoverheid.nl/actueel/nieuws/2025/12/12/nieuwe-visie-legt-fundament-voor-een-autonome-en-soevereine-digitale-overheid
+
+- id: handreiking-generatieve-ai
+  title: Overheidsbrede handreiking Generatieve AI
+  categorie: Richtlijnen
+  omschrijving: >
+    Praktische handreiking (BZK, april 2025) voor verantwoorde inzet van generatieve
+    AI bij overheidsorganisaties.
+  url: https://www.rijksoverheid.nl/documenten/rapporten/2025/04/16/overheidsbrede-handreiking-generatieve-ai
+
+- id: bio2
+  title: "BIO2 — Baseline Informatiebeveiliging Overheid (v1.3, 2026)"
+  categorie: Verplicht kader
+  omschrijving: >
+    Het verplichte informatiebeveiligingskader voor de Nederlandse overheid.
+    Iedere infrastructuurkeuze moet hieraan voldoen.
+  url: https://www.bio-overheid.nl/
+
+- id: algoritmekader
+  title: Algoritmekader (BZK)
+  categorie: Raamwerk
+  omschrijving: >
+    Het Algoritmekader van de Rijksoverheid, inclusief leidraad voor inkoop van
+    verantwoorde algoritmes en concrete maatregelen voor data en infrastructuur.
+  url: https://minbzk.github.io/Algoritmekader/
+
+- id: algoritmeregister
+  title: Algoritmeregister
+  categorie: Register
+  omschrijving: >
+    Overheidsregister waarin Nederlandse overheidsorganisaties informatie publiceren
+    over het gebruik van algoritmen en AI.
+  url: https://algoritmes.overheid.nl/
+
+- id: nora
+  title: "NORA — Nederlandse Overheid Referentie Architectuur"
+  categorie: Raamwerk
+  omschrijving: >
+    Het overkoepelende architectuurkader voor de Nederlandse overheid.
+  url: https://www.noraonline.nl/
+
+- id: gemma
+  title: "GEMMA — Gemeentelijke Modelarchitectuur"
+  categorie: Raamwerk
+  omschrijving: >
+    Gemeentelijke modelarchitectuur (VNG) als referentiekader voor gemeentelijke IT.
+  url: https://vng.nl/projecten/gemeentelijke-model-architectuur-gemma
+
+- id: common-ground
+  title: Common Ground
+  categorie: Raamwerk
+  omschrijving: >
+    Architectuurprincipes voor gemeentelijke IT, gericht op ontkoppeling van data
+    en applicaties.
+  url: https://commonground.nl/
+
+- id: vlam-ai
+  title: VLAM.AI (SSC-ICT)
+  categorie: Soevereine infrastructuur
+  omschrijving: >
+    Veilige Lokale AI Modellen — on-premise GPU-cluster in overheidsdatacenters met
+    API-toegang, vlam-chat en vlam-search. Officieel gelanceerd mei 2025;
+    acht ministeries aangesloten.
+  url: https://www.digitaleoverheid.nl/nieuws/departementen-kiezen-voor-veilige-ai-chatbot-van-ssc-ict/
+
+- id: gpt-nl
+  title: GPT-NL (TNO, NFI, SURF)
+  categorie: Soeverein taalmodel
+  omschrijving: >
+    Soeverein open Nederlands taalmodel. Bètaversie draait bij eerste launching
+    customers (Q1 2026); bredere uitrol najaar 2026.
+  url: https://gpt-nl.nl/
+
+- id: surf-snellius
+  title: SURF Snellius / AI Hub
+  categorie: Infrastructuur
+  omschrijving: >
+    Nationale supercomputer met GPU-uitbreiding (38 PFlop/s),
+    trainingsinfrastructuur voor GPT-NL.
+  url: https://www.surf.nl/en/news/gpu-expansion-of-supercomputer-snellius-enables-even-faster-data-processing-for-dutch
+
+- id: govchat-nl
+  title: GovChat-NL
+  categorie: Open-source platform
+  omschrijving: >
+    Open-source AI-platform voor overheden (Provincie Limburg), gebaseerd op
+    OpenWebUI. Tweewekelijks overleg met provincies en gemeenten,
+    goedgekeurde DPIA beschikbaar.
+  url: https://www.govchat-nl.nl/
+
+- id: haven
+  title: Haven en Haven+
+  categorie: Standaard containerplatform
+  omschrijving: >
+    Kubernetes-standaard van VNG/Common Ground met observability, security en
+    networking. BIO- en NIS2-compliant; tussenlaag tussen infrastructuur en
+    applicaties zodat applicaties niet meer aan één IT-infrastructuur gebonden zijn.
+  url: https://haven.commonground.nl/
+
+- id: standaard-platform
+  title: Standaard Platform (Logius)
+  categorie: Standaard containerplatform
+  omschrijving: >
+    Kubernetes-containerplatform voor Rijksapplicaties.
+  url: https://www.logius.nl/diensten/standaard-platform
+
+- id: wetwijzer-bedrijven
+  title: WetWijzer Bedrijven (KOOP/Logius)
+  categorie: Open-source RAG-referentie
+  omschrijving: >
+    Nederlands referentievoorbeeld voor RAG bij de overheid; volledig open-source
+    gerealiseerd. Eindrapport en broncode beschikbaar op GitLab.
+  url: https://gitlab.com/koop/innovatielab/wetwijzer-bedrijven-prototype
+
+- id: nvidia-rag-blueprint
+  title: NVIDIA Enterprise RAG Blueprint
+  categorie: Referentiearchitectuur
+  omschrijving: >
+    Productie-klare referentiearchitectuur voor RAG-pijplijnen met alle componenten:
+    ingestion, embedding, vector DB, retriever, reranker, LLM, guardrails en
+    observability. Generiek toepasbaar; componenten zijn vervangbaar door open-source
+    of soevereine alternatieven.
+  url: https://github.com/NVIDIA-AI-Blueprints/rag
+
+- id: dense-sparse-retrieval
+  title: Dense vs. Sparse Retrieval (FAISS, BM25, Hybrid Search)
+  categorie: Richtlijnen
+  omschrijving: >
+    Achtergrondartikel over de werking van hybride zoekstrategieën in RAG-toepassingen.
+  url: https://dev.to/qvfagundes/dense-vs-sparse-retrieval-mastering-faiss-bm25-and-hybrid-search-4kb1
+
+- id: nvidia-chunking-strategy
+  title: "NVIDIA — Finding the Best Chunking Strategy"
+  categorie: Richtlijnen
+  omschrijving: >
+    Benchmark van chunkingstrategieën voor RAG-pijplijnen op gemengde datasets.
+  url: https://developer.nvidia.com/blog/finding-the-best-chunking-strategy-for-accurate-ai-responses/
+
+- id: e5-nl-embeddings
+  title: E5-NL embedding-modellen
+  categorie: Tools
+  omschrijving: >
+    Open-source Nederlandse embedding-modellen, beschikbaar op Hugging Face.
+  url: https://huggingface.co/models?search=e5-nl
+
+- id: qdrant
+  title: Qdrant
+  categorie: Tools
+  omschrijving: >
+    Open-source self-hostable vectordatabase, populair bij productie-RAG.
+  url: https://qdrant.tech/
+
+- id: milvus
+  title: Milvus
+  categorie: Tools
+  omschrijving: >
+    Open-source vectordatabase die ook door NVIDIA Blueprint en VLAM.AI-omgevingen
+    wordt gebruikt.
+  url: https://milvus.io/
+
+- id: weaviate
+  title: Weaviate
+  categorie: Tools
+  omschrijving: >
+    Open-source vectordatabase met hybrid-search-functionaliteit ingebakken.
+  url: https://weaviate.io/
+
+- id: dcat-ap-nl
+  title: DCAT-AP-NL 3.0
+  categorie: Standaard
+  omschrijving: >
+    Nederlandse profielimplementatie van de Europese DCAT-AP-standaard voor
+    datacatalogi en lineage.
+  url: https://www.forumstandaardisatie.nl/intakeadvies-dcat-ap-nl-30
+
+- id: berthub-opentk
+  title: "Berthub — Welkom bij OpenTK"
+  categorie: Voorbeeldproject
+  omschrijving: >
+    Open data en RAG-experimenten met Tweede Kamer-bronnen, voorbeeld van
+    bronselectie in de praktijk.
+  url: https://berthub.eu/articles/posts/welkom-bij-opentk/
+
+- id: vllm
+  title: vLLM
+  categorie: Tools
+  omschrijving: >
+    Productie-inference-engine voor taalmodellen, open source.
+  url: https://vllm.ai/
+
+- id: ollama
+  title: Ollama
+  categorie: Tools
+  omschrijving: >
+    Lokaal taalmodellen draaien voor prototyping en experimentatie.
+  url: https://ollama.com/
+
+- id: mlflow
+  title: MLflow
+  categorie: Tools
+  omschrijving: >
+    Open-source modelregistry, experiment-tracking en tracing voor
+    reproduceerbaarheid en auditability.
+  url: https://mlflow.org/
+
+- id: litellm
+  title: LiteLLM
+  categorie: Tools
+  omschrijving: >
+    Uniforme LLM-gateway met load balancing en multi-provider routing;
+    in gebruik bij GovChat-NL.
+  url: https://litellm.ai/
+
+- id: artificial-analysis
+  title: Artificial Analysis
+  categorie: Tools
+  omschrijving: >
+    Vergelijk AI-modellen op performance, kosten en latency.
+  url: https://artificialanalysis.ai/
+
+- id: langfuse
+  title: Langfuse
+  categorie: Tools
+  omschrijving: >
+    Open-source LLM-observability platform, volledig self-hostable.
+  url: https://langfuse.com/
+
+- id: ragas
+  title: RAGAS
+  categorie: Tools
+  omschrijving: >
+    Open-source evaluatieframework voor RAG-pijplijnen met de standaardmetrieken
+    faithfulness, answer relevancy, context precision en context recall.
+  url: https://docs.ragas.io/
+
+- id: owasp-top10-llm
+  title: OWASP Top 10 for LLM Applications
+  categorie: Richtlijnen
+  omschrijving: >
+    Beveiligingsrisico's voor AI-systemen die in monitoring detecteerbaar moeten zijn.
+  url: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+
+- id: deepeval
+  title: DeepEval
+  categorie: Tools
+  omschrijving: >
+    Framework voor 'unit testen' van chatbots: meet hoe relevant en feitelijk
+    de antwoorden zijn.
+  url: https://deepeval.com/
+
+- id: langwatch
+  title: LangWatch
+  categorie: Tools
+  omschrijving: >
+    Alternatief observability-platform voor LLM-applicaties.
+  url: https://langwatch.ai/
+
+- id: innovatiebudget-2025
+  title: "Innovatiebudget 2025 — De Virtuele AI-assistent"
+  categorie: Voorbeeldproject
+  omschrijving: >
+    Project van gemeente Amsterdam en Heerlen voor een landelijke standaard
+    virtuele AI-assistent.
+  url: https://www.digitaleoverheid.nl/overzicht-van-alle-onderwerpen/innovatie/innovatiebudget/toekenning-innovatiebudget-2025/
+
+- id: mcp-protocol
+  title: Model Context Protocol (MCP)
+  categorie: Standaard
+  omschrijving: >
+    Open protocol voor de uitwisseling van context tussen LLM's en externe systemen.
+  url: https://modelcontextprotocol.io/
+
+- id: a2a-protocol
+  title: Agent 2 Agent Protocol (A2A)
+  categorie: Standaard
+  omschrijving: >
+    Open protocol voor communicatie tussen autonome AI-agents.
+  url: https://a2aproject.github.io/A2A/
+
+- id: keda
+  title: "KEDA — Kubernetes Event-driven Autoscaling"
+  categorie: Tools
+  omschrijving: >
+    Event-gedreven auto-scaler voor Kubernetes, breed inzetbaar voor AI-workloads
+    die schalen op basis van queue-depth of inkomend verkeer.
+  url: https://keda.sh/
+
+- id: kserve
+  title: KServe
+  categorie: Tools
+  omschrijving: >
+    Kubernetes-native model-serving platform met ingebouwde auto-scaling,
+    canary deployments en multi-model serving.
+  url: https://kserve.github.io/website/

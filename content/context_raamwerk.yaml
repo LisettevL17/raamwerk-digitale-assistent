@@ -1,0 +1,48 @@
+title: Over dit raamwerk
+eyebrow: Achtergrond
+lede: >
+  Het raamwerk helpt publieke organisaties hun digitale assistenten aantoonbaar op een verantwoorde en toekomstbestendige manier te bouwen en te onderhouden.
+
+sections:
+  - heading: Doel van het Raamwerk
+    body:
+      - >
+        Het raamwerk helpt publieke organisaties om deze digitale assistenten sneller, beter
+        en consistenter te ontwikkelen en in te zetten, zonder telkens het wiel opnieuw uit
+        te vinden. Het biedt een gecureerd overzicht van alle relevante thema’s met praktische
+        handvatten, zodat organisaties weten “waar je allemaal aan moet denken” én hoe je dat
+        in de praktijk goed doet.
+      - >
+        Het raamwerk voegt waarde toe doordat het kennis en good practices bundelt en dit
+        specifiek maakt voor een digitale assistent:
+      - |
+        1. Het versnelt organisaties bij het vinden van relevante bruikbare informatie: het raamwerk geeft per onderwerp een korte duiding en verwijst gericht naar bestaande, gezaghebbende bronnen.
+        2. De echte meerwaarde zit in een aantal doorgedachte good practices waar organisaties direct mee kunnen werken in hun eigen context.
+        3. In een doorontwikkeling van het raamwerk voegen we (deel)producten als een codebase of skills-repository (bijv. GitHub) toe waarin good practices al in voorbeeldcode en configuraties zijn verwerkt, zodat organisaties letterlijk niet from scratch hoeven te beginnen.
+
+  - heading: Doelgroep raamwerk
+    body: >
+      Het raamwerk digitale assistenten is bedoeld voor iedereen binnen publieke organisaties die betrokken is bij het ontwikkelen, beoordelen of inzetten van digitale assistenten. 
+      Dat zijn niet alleen technische teams, maar ook beleidsmakers, managers en bestuurders. 
+      De toolbox is zo opgezet dat iedere gebruiker de voor hem of haar relevante onderdelen snel kan vinden, ongeacht de fase waarin de organisatie of het project zich bevindt. 
+
+  - heading: Wat verstaan wij onder een digitale assistent?
+    body:
+      - >
+        Een digitale assistent is een slimme, geautomatiseerde dienst op basis van Gen-AI die via digitale kanalen interactief met gebruikers en/of systemen communiceert.
+        De assistent kan vragen beantwoorden, taken uitvoeren en informatie aanbieden aan mensen binnen (medewerkers) of buiten de organisatie (burgers en ondernemers).
+      - >
+        Een digitale assistent is meer dan een statische FAQ‑chatbot; het is een (AI‑gedreven) dienst die burgers en professionals contextueel ondersteunt en die op termijn ook echt handelingen kan uitvoeren.
+
+  
+  
+  - heading: Over deze website
+    body: >
+       Een levend document dat samen met overheidsorganisaties wordt onderhouden. Niet als afvinklijst, maar als startpunt voor gesprek en keuzes.
+
+sidebar:
+  - label: Volgende update
+    value: November 2026
+  - label: Contact
+    value: cio-rijk@minbzk.nl
+    href: mailto:cio-rijk@minbzk.nl
