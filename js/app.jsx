@@ -5,8 +5,7 @@ const { useState: useStateA, useEffect: useEffectA } = React;
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "theme": "light",
   "density": "comfort",
-  "accent": "rijksblauw",
-  "diagramStyle": "wedges"
+  "accent": "rijksblauw"
 }/*EDITMODE-END*/;
 
 function App() {

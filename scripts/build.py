@@ -35,9 +35,18 @@ def md_to_html(text):
         para = para.strip()
         if not para:
             continue
-        para = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', para)
-        para = para.replace('\n', '<br/>')
-        html.append(f'<p>{para}</p>')
+        lines = para.split('\n')
+        if all(line.startswith('- ') for line in lines if line.strip()):
+            items = []
+            for line in lines:
+                if line.strip():
+                    item = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', line[2:])
+                    items.append(f'<li>{item}</li>')
+            html.append('<ul>' + ''.join(items) + '</ul>')
+        else:
+            para = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', para)
+            para = para.replace('\n', '<br/>')
+            html.append(f'<p>{para}</p>')
     return ''.join(html)
 
 
@@ -66,26 +75,11 @@ def js_value(v):
     return json.dumps(v, ensure_ascii=False)
 
 
-def render_rings(rings):
-    lines = ['const RINGS = [']
-    for r in rings:
-        lines.append('  {')
-        lines.append(f'    id: {js_value(r["id"])},')
-        lines.append(f'    label: {js_value(r["label"])},')
-        lines.append(f'    short: {js_value(r["short"])},')
-        lines.append(f'    description: {js_value(r["description"])},')
-        lines.append(f'    color: {js_value(r["color"])},')
-        lines.append(f'    fg: {js_value(r["fg"])},')
-        lines.append('  },')
-    lines.append('];')
-    return '\n'.join(lines)
-
-
 def render_domains(domains):
     lines = ['const DOMAINS = [']
     for d in domains:
         lines.append('  {')
-        lines.append(f'    id: {js_value(d["id"])}, nr: {d["nr"]}, ring: {js_value(d["ring"])},')
+        lines.append(f'    id: {js_value(d["id"])}, nr: {d["nr"]},')
         lines.append(f'    title: {js_value(d["title"])},')
         lines.append(f'    short: {js_value(d["short"])},')
         lines.append(f'    wat: {js_value(d["wat"])},')
@@ -93,6 +87,9 @@ def render_domains(domains):
         lines.append(f'    sources: {js_value(d["sources"])},')
         lines.append(f'    practices: {js_value(d.get("practices", []))},')
         lines.append(f'    samenhang: {js_value(d.get("samenhang", []))},')
+        lines.append(f'    keuzemomenten: {js_value(d.get("keuzemomenten", ""))},')
+        lines.append(f'    samenhang_toelichting: {js_value(d.get("samenhang_toelichting", ""))},')
+
         lines.append('  },')
     lines.append('];')
     return '\n'.join(lines)
@@ -123,7 +120,6 @@ def resolve_sources(sources, bronnen_by_id):
 
 
 def main():
-    rings = load_yaml(os.path.join(CONTENT_DIR, 'rings.yaml'))
     meta = load_yaml(os.path.join(CONTENT_DIR, 'filters.yaml'))
     home = load_yaml(os.path.join(CONTENT_DIR, 'home.yaml'))
     over = load_yaml(os.path.join(CONTENT_DIR, 'context_raamwerk.yaml'))
@@ -142,14 +138,13 @@ def main():
 
     output = '\n\n'.join([
         '// Raamwerk Digitale Assistenten — gegenereerd door scripts/build.py',
-        render_rings(rings),
         render_domains(domains),
         f'const PHASES  = {js_value(meta["phases"])};',
         f'const LEVELS  = {js_value(meta["levels"])};',
         render_practices(practices),
         f'const HOME = {js_value(home)};',
         f'const OVER = {js_value(over)};',
-        'window.RAAMWERK = { RINGS, DOMAINS, PHASES, LEVELS, PRACTICES, HOME, OVER };',
+        'window.RAAMWERK = { DOMAINS, PHASES, LEVELS, PRACTICES, HOME, OVER };',
     ])
 
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:

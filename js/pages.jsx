@@ -1,5 +1,5 @@
 /* global React, navigate, FrameworkDiagram, DomainGlyph, Icon */
-const { useState: useS, useEffect: useE, useMemo: useM, useRef: useR } = React;
+const { useState: useS, useMemo: useM } = React;
 
 const RAAM = window.RAAMWERK;
 
@@ -9,18 +9,25 @@ function boldBeforeColon(text) {
   return <><strong>{text.slice(0, idx)}</strong>{text.slice(idx)}</>;
 }
 
-function ringBg(ringId) {
-  const map = { kern: '#e6f0f7', waarborgen: '#e6f0f7', organisatie: '#f3f7fb', governance: '#f3f7fb' };
-  return map[ringId] || '#f3f7fb';
+
+/* ============================== COLLAPSIBLE SECTION ============================== */
+function Section({ title, children }) {
+  const [open, setOpen] = useS(false);
+  return (
+    <div className="section-block">
+      <button className="section-toggle" onClick={() => setOpen(o => !o)}>
+        <span>{title}</span>
+        <svg className={'section-chevron' + (open ? ' open' : '')} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      {open && <div className="section-content">{children}</div>}
+    </div>
+  );
 }
-function ringFg(ringId) {
-  const map = { kern: '#154273', waarborgen: '#01689b', organisatie: '#0b3d68', governance: '#0b3d68' };
-  return map[ringId] || '#01689b';
-}
-function ring(ringId) { return RAAM.RINGS.find(r => r.id === ringId); }
 
 /* ============================== HOME ============================== */
-function HomePage({ tweaks }) {
+function HomePage() {
   const h = RAAM.HOME;
   return (
     <div className="container">
@@ -33,9 +40,8 @@ function HomePage({ tweaks }) {
           ))}
           <p className="lede" style={{ fontSize: 16 }}>{h.lede_sub}</p>
           <div className="hero-meta">
-            <div className="stat"><span className="num">13</span><span className="lbl">Domeinen</span></div>
-            <div className="stat"><span className="num">4</span><span className="lbl">Fundamenteel</span></div>
-            <div className="stat"><span className="num">9</span><span className="lbl">In de assistent</span></div>
+            <div className="stat"><span className="num">4</span><span className="lbl">Fundamenten</span></div>
+            <div className="stat"><span className="num">9</span><span className="lbl">Domeinen</span></div>
             <div className="stat"><span className="num">{RAAM.PRACTICES.length}</span><span className="lbl">Good Practices</span></div>
           </div>
           <div className="hero-cta">
@@ -58,32 +64,6 @@ function HomePage({ tweaks }) {
         </div>
       </section>
 
-      <div className="divider-thin" />
-
-      <section className="section">
-        <div className="section-title-row">
-          <div>
-            <span className="eyebrow">{h.rings_section.eyebrow}</span>
-            <h2 style={{ marginTop: 6 }}>{h.rings_section.heading}</h2>
-            <p>{h.rings_section.description}</p>
-          </div>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-          {RAAM.RINGS.map(r => (
-            <div key={r.id} className="card" style={{ '--ring-color': r.color }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ width: 14, height: 14, borderRadius: 4, background: r.color, display: 'inline-block' }} />
-                <span className="eyebrow" style={{ color: r.color === '#cce0ee' ? '#0b3d68' : r.color }}>{r.short}</span>
-              </div>
-              <h3 style={{ fontSize: 17 }}>{r.label}</h3>
-              <p style={{ color: 'var(--ink-700)', fontSize: 14, margin: 0 }}>{r.description}</p>
-              <div style={{ fontSize: 12, color: 'var(--ink-500)', marginTop: 'auto', paddingTop: 8 }}>
-                {RAAM.DOMAINS.filter(d => d.ring === r.id).length} domeinen
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
@@ -93,22 +73,19 @@ function DomeinenPage() {
   const FUND_IDS = ['governance','infrastructuur-data','cultuur-adoptie','kennis-capaciteit'];
   const fundamenten = RAAM.DOMAINS.filter(d => FUND_IDS.includes(d.id));
   const overige = RAAM.DOMAINS.filter(d => !FUND_IDS.includes(d.id));
-  const renderCard = (d) => {
-    const r = ring(d.ring);
+  const renderCard = (d, isFundament = false) => {
     const count = RAAM.PRACTICES.filter(p => p.domains.includes(d.id)).length;
     return (
-      <a key={d.id} className="card card-link domain-card"
-         style={{ '--ring-color': r.color === '#cce0ee' ? '#0b3d68' : r.color }}
+      <a key={d.id} className={'card card-link domain-card' + (isFundament ? ' domain-card--fundament' : '')}
          onClick={(e) => { e.preventDefault(); navigate('/domeinen/' + d.id); }}
          href={'#/domeinen/' + d.id}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <DomainGlyph id={d.id} ring={d.ring} />
-          <span className="nr">DOMEIN {String(d.nr).padStart(2, '0')}</span>
+          <DomainGlyph id={d.id} />
+          <span className="nr">{isFundament ? 'FUNDAMENT' : 'DOMEIN'} {String(d.nr).padStart(2, '0')}</span>
         </div>
         <h3>{d.title}</h3>
         <p>{d.short}</p>
         <div className="meta">
-          <span className="ring-pill"><span className="ring-dot"/>{r.short}</span>
           <span>{count} good practice{count===1?'':'s'}</span>
         </div>
       </a>
@@ -134,7 +111,7 @@ function DomeinenPage() {
       <p style={{ color: 'var(--ink-700)', maxWidth: 780, margin: '0 0 22px' }}>
         {RAAM.HOME.fundamenten_section.description}
       </p>
-      <div className="domain-grid">{fundamenten.map(renderCard)}</div>
+      <div className="domain-grid">{fundamenten.map(d => renderCard(d, true))}</div>
 
       <div id="digitale-assistent" className="section-header" style={{ display: 'flex', alignItems: 'baseline', gap: 16, margin: '48px 0 4px', scrollMarginTop: 24 }}>
         <span className="eyebrow" style={{ fontSize: 13, letterSpacing: 1.6 }}>{RAAM.HOME.assistent_section.label}</span>
@@ -144,7 +121,7 @@ function DomeinenPage() {
       <p style={{ color: 'var(--ink-700)', maxWidth: 780, margin: '0 0 22px' }}>
         {RAAM.HOME.assistent_section.description}
       </p>
-      <div className="domain-grid">{overige.map(renderCard)}</div>
+      <div className="domain-grid">{overige.map(d => renderCard(d, false))}</div>
     </div>
   );
 }
@@ -153,11 +130,9 @@ function DomeinenPage() {
 function DomeinDetail({ id }) {
   const d = RAAM.DOMAINS.find(x => x.id === id);
   if (!d) return <div className="container"><h1>Domein niet gevonden</h1></div>;
-  const r = ring(d.ring);
   const practices = d.practices && d.practices.length > 0
     ? d.practices.map(id => RAAM.PRACTICES.find(p => p.id === id)).filter(Boolean)
     : RAAM.PRACTICES.filter(p => p.domains.includes(d.id));
-  const relColor = r.color === '#cce0ee' ? '#0b3d68' : r.color;
   return (
     <div className="container">
       <div className="crumbs">
@@ -165,23 +140,24 @@ function DomeinDetail({ id }) {
         <a href="#/domeinen">Domeinen</a><span className="sep">/</span>
         <span>{d.title}</span>
       </div>
-      <div className="detail-header" style={{ '--ring-color': relColor }}>
-        <span className="eyebrow with-ring"><span className="ring-dot" style={{ background: r.color }}/> {r.label} · Domein {String(d.nr).padStart(2, '0')}</span>
+      <div className="detail-header">
+        <span className="eyebrow">Domein {String(d.nr).padStart(2, '0')}</span>
         <h1>{d.title}</h1>
         <p className="lede" style={{ fontSize: 19 }}>{d.short}</p>
       </div>
 
       <div className="detail-grid">
         <div className="detail-body">
-          <h2>Wat is {d.title} in een Digitale Assistent?</h2>
-          <div dangerouslySetInnerHTML={{ __html: d.wat }} />
+          <Section title={`Wat is ${d.title} in een digitale assistent?`}>
+            <div dangerouslySetInnerHTML={{ __html: d.wat }} />
+          </Section>
 
-          <h2>Waarom is {d.title} belangrijk in een Digitale Assistent?</h2>
-          <div dangerouslySetInnerHTML={{ __html: d.waarom }} />
+          <Section title={`Waarom is ${d.title} belangrijk in een digitale assistent?`}>
+            <div dangerouslySetInnerHTML={{ __html: d.waarom }} />
+          </Section>
 
           {d.sources && d.sources.length > 0 && (
-            <>
-              <h2>Welke Basiskennis is nodig?</h2>
+            <Section title="Welke basiskennis is nodig?">
               <ul className="bronnen-items">
                 {d.sources.map((b, i) => typeof b === 'string' ? (
                   <li key={i}>{b}</li>
@@ -194,56 +170,48 @@ function DomeinDetail({ id }) {
                   </li>
                 ))}
               </ul>
-            </>
+            </Section>
           )}
 
-          <h2>Good practices in dit domein</h2>
-          {practices.length === 0 ? (
-            <p style={{ color: 'var(--ink-500)' }}>Nog geen good practices in dit domein. Heb je er een? <a href="#">Dien een suggestie in</a>.</p>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {practices.map(p => (
-                <a key={p.id} className="card card-link practice-card"
-                   onClick={(e) => { e.preventDefault(); navigate('/practices/' + p.id); }}
-                   href={'#/practices/' + p.id}>
-                  <h3 style={{ margin: 0 }}>{p.title}</h3>
-                  <p>{p.summary}</p>
-                  <div className="tag-row">
-                    {p.phases.map(ph => <span key={ph} className={'tag tag-phase-' + ph.toLowerCase()}>{ph}</span>)}
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-        <aside className="detail-side">
-          <div className="side-card">
-            <h4>Ring</h4>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ width: 14, height: 14, borderRadius: 4, background: r.color, display: 'inline-block' }} />
-              <strong style={{ color: 'var(--ro-blue-800)' }}>{r.label}</strong>
-            </div>
-            <p style={{ margin: '8px 0 0', color: 'var(--ink-700)', fontSize: 13 }}>{r.description}</p>
-          </div>
-          {(() => {
-            const samenhangDomeinen = (d.samenhang || []).map(id => RAAM.DOMAINS.find(x => x.id === id)).filter(Boolean);
-            return samenhangDomeinen.length > 0 ? (
-              <div className="side-card">
-                <h4>Samenhang met andere domeinen</h4>
-                <ul>
-                  {samenhangDomeinen.map(x => (
-                    <li key={x.id}><a onClick={(e)=>{e.preventDefault();navigate('/domeinen/'+x.id);}} href={'#/domeinen/'+x.id}>{x.title}</a></li>
-                  ))}
-                </ul>
+          <Section title="Good practices in dit domein">
+            {practices.length === 0 ? (
+              <p style={{ color: 'var(--ink-500)' }}>Nog geen good practices in dit domein. Heb je er een? <a href="#">Dien een suggestie in</a>.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {practices.map(p => (
+                  <a key={p.id} className="card card-link practice-card"
+                     onClick={(e) => { e.preventDefault(); navigate('/practices/' + p.id); }}
+                     href={'#/practices/' + p.id}>
+                    <h3 style={{ margin: 0 }}>{p.title}</h3>
+                    <p>{p.summary}</p>
+                    <div className="tag-row">
+                      {p.phases.map(ph => <span key={ph} className={'tag tag-phase-' + ph.toLowerCase()}>{ph}</span>)}
+                    </div>
+                  </a>
+                ))}
               </div>
-            ) : null;
-          })()}
-          <div className="side-card">
-            <h4>Vragen of aanvullingen?</h4>
-            <p style={{ margin: '0 0 12px', color: 'var(--ink-700)', fontSize: 13 }}>Help het raamwerk verbeteren met jouw praktijkervaring.</p>
-            <button className="btn btn-sm btn-ghost" onClick={() => alert('Suggestie indienen')}><Icon.Suggest/> Suggestie indienen</button>
-          </div>
-        </aside>
+            )}
+          </Section>
+
+          <Section title="Keuzemomenten die dit fundament raken">
+            {d.keuzemomenten
+              ? <div dangerouslySetInnerHTML={{ __html: d.keuzemomenten }} />
+              : <p style={{ color: 'var(--ink-500)' }}>Nog geen inhoud toegevoegd.</p>}
+          </Section>
+
+          <Section title="Samenhang met andere fundamenten en domeinen">
+            {d.samenhang_toelichting
+              ? <div dangerouslySetInnerHTML={{ __html: d.samenhang_toelichting }} />
+              : <p style={{ color: 'var(--ink-500)' }}>Nog geen inhoud toegevoegd.</p>}
+          </Section>
+        </div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
+        <div className="side-card" style={{ width: 320, textAlign: 'center' }}>
+          <h4>Vragen of aanvullingen?</h4>
+          <p style={{ margin: '0 0 12px', color: 'var(--ink-700)', fontSize: 13 }}>Help het raamwerk verbeteren met jouw praktijkervaring.</p>
+          <button className="btn btn-sm btn-ghost" onClick={() => alert('Suggestie indienen')}><Icon.Suggest/> Suggestie indienen</button>
+        </div>
       </div>
     </div>
   );
@@ -355,30 +323,25 @@ function PracticesPage() {
             </div>
           ) : (
             <div className="gp-list">
-              {filtered.map(p => {
-                const firstDomain = RAAM.DOMAINS.find(d => d.id === p.domains[0]);
-                const r = firstDomain ? ring(firstDomain.ring) : null;
-                return (
-                  <a key={p.id} className="card card-link practice-card"
-                     onClick={(e) => { e.preventDefault(); navigate('/practices/' + p.id); }}
-                     href={'#/practices/' + p.id}>
-                    <h3 style={{ margin: '0 0 4px' }}>{p.title}</h3>
-                    <p>{p.summary}</p>
-                    <div className="tag-row">
-                      {p.domains.slice(0,2).map(did => {
-                        const dd = RAAM.DOMAINS.find(x => x.id === did);
-                        const rr = ring(dd.ring);
-                        return <span key={did} className="tag tag-domain" style={{ '--ring-bg': rr.id==='kern'||rr.id==='waarborgen' ? '#e6f0f7' : '#f3f7fb', '--ring-fg': rr.color === '#cce0ee' ? '#0b3d68' : rr.color }}>{dd.title}</span>;
-                      })}
-                      {p.phases.map(ph => <span key={ph} className={'tag tag-phase-' + ph.toLowerCase()}>{ph}</span>)}
-                    </div>
-                    <div className="row-meta">
-                      <span style={{ color: 'var(--ink-500)', fontSize: 12 }}>{p.levels.join(' · ')}</span>
-                      <span className="read-more">Lees meer <Icon.Arrow/></span>
-                    </div>
-                  </a>
-                );
-              })}
+              {filtered.map(p => (
+                <a key={p.id} className="card card-link practice-card"
+                   onClick={(e) => { e.preventDefault(); navigate('/practices/' + p.id); }}
+                   href={'#/practices/' + p.id}>
+                  <h3 style={{ margin: '0 0 4px' }}>{p.title}</h3>
+                  <p>{p.summary}</p>
+                  <div className="tag-row">
+                    {p.domains.slice(0,2).map(did => {
+                      const dd = RAAM.DOMAINS.find(x => x.id === did);
+                      return <span key={did} className="tag tag-domain">{dd.title}</span>;
+                    })}
+                    {p.phases.map(ph => <span key={ph} className={'tag tag-phase-' + ph.toLowerCase()}>{ph}</span>)}
+                  </div>
+                  <div className="row-meta">
+                    <span style={{ color: 'var(--ink-500)', fontSize: 12 }}>{p.levels.join(' · ')}</span>
+                    <span className="read-more">Lees meer <Icon.Arrow/></span>
+                  </div>
+                </a>
+              ))}
             </div>
           )}
         </div>
@@ -403,10 +366,6 @@ function PracticeDetail({ id }) {
         <span className="eyebrow">Good Practice</span>
         <h1>{p.title}</h1>
         <p className="lede" style={{ fontSize: 19 }}>{p.summary}</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
-          {p.phases.map(ph => <span key={ph} className={'tag tag-phase-' + ph.toLowerCase()}>{ph}</span>)}
-          {p.levels.map(l => <span key={l} className="tag tag-level">{l}</span>)}
-        </div>
       </div>
 
       <div className="detail-grid">
@@ -436,17 +395,11 @@ function PracticeDetail({ id }) {
           <div className="side-card">
             <h4>Relevante domeinen</h4>
             <ul>
-              {domainObjs.map(d => {
-                const r = ring(d.ring);
-                return (
-                  <li key={d.id}>
-                    <a onClick={(e)=>{e.preventDefault();navigate('/domeinen/'+d.id);}} href={'#/domeinen/'+d.id}
-                       style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span className="ring-dot" style={{ background: r.color, color: r.color }} /> {d.title}
-                    </a>
-                  </li>
-                );
-              })}
+              {domainObjs.map(d => (
+                <li key={d.id}>
+                  <a onClick={(e)=>{e.preventDefault();navigate('/domeinen/'+d.id);}} href={'#/domeinen/'+d.id}>{d.title}</a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="side-card">

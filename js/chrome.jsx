@@ -1,5 +1,5 @@
 /* global React */
-const { useState, useEffect, useRef, useMemo, createContext, useContext } = React;
+const { useState, useEffect } = React;
 
 /* ===== Routing (hash) ===== */
 function parseHash() {
@@ -68,8 +68,8 @@ const Icon = {
   ),
 };
 
-/* ===== Domain icons (one per ring) — small abstract glyphs ===== */
-function DomainGlyph({ id, ring }) {
+/* ===== Domain icons — small abstract glyphs ===== */
+function DomainGlyph({ id }) {
   // pick from a small set keyed by domain id
   const stroke = "currentColor";
   const sw = 1.6;
@@ -110,7 +110,7 @@ function Navbar({ route, theme, setTheme }) {
   const items = [
     { id: '/', label: 'Home' },
     { id: '/domeinen', label: 'Domeinen' },
-    { id: '/practices', label: 'Overzicht Good Practices' },
+    { id: '/practices', label: 'Good Practices' },
     { id: '/over', label: 'Over dit raamwerk' },
   ];
   const isActive = (id) => {
@@ -161,7 +161,7 @@ function Footer() {
           <div>
             <h4>Verken</h4>
             <ul>
-              <li><a href="#/domeinen">13 Domeinen</a></li>
+              <li><a href="#/domeinen">Domeinen</a></li>
               <li><a href="#/practices">Good Practices</a></li>
               <li><a href="#/over">Over dit raamwerk</a></li>
             </ul>
