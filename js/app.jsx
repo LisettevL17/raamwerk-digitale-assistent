@@ -1,4 +1,4 @@
-/* global React, ReactDOM, Brandbar, Navbar, Footer, useRoute, HomePage, DomeinenPage, DomeinDetail, PracticesPage, PracticeDetail, OverPage */
+/* global React, ReactDOM, Brandbar, Navbar, Footer, useRoute, HomePage, DomeinenPage, DomeinDetail, PracticesPage, PracticeDetail, OverPage, VariantD, Glossary2 */
 /* global useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle */
 const { useState: useStateA, useEffect: useEffectA } = React;
 
@@ -17,9 +17,9 @@ function App() {
     document.documentElement.setAttribute('data-density', t.density);
     // accent color
     const accents = {
-      rijksblauw: { c600: '#01689b', c700: '#0a78b0', c800: '#154273' },
-      hemelblauw: { c600: '#007bc7', c700: '#01689b', c800: '#154273' },
-      donkergroen: { c600: '#39870c', c700: '#2e6c09', c800: '#1f4607' },
+      rijksblauw:  { c600: '#01689b', c700: '#0a78b0' },
+      hemelblauw:  { c600: '#007bc7', c700: '#01689b' },
+      donkergroen: { c600: '#39870c', c700: '#2e6c09' },
     };
     const a = accents[t.accent] || accents.rijksblauw;
     document.documentElement.style.setProperty('--ro-blue-600', a.c600);
@@ -36,6 +36,8 @@ function App() {
   else if (route === '/practices') page = <PracticesPage/>;
   else if (route.startsWith('/practices/')) page = <PracticeDetail id={route.slice('/practices/'.length)}/>;
   else if (route === '/over') page = <OverPage/>;
+  else if (route === '/bronnen') page = <VariantD/>;
+  else if (route === '/begrippenlijst') page = <Glossary2/>;
   else page = <HomePage tweaks={t}/>;
 
   return (

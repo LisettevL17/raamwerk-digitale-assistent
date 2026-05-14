@@ -88,6 +88,7 @@ function DomainGlyph({ id }) {
     'infrastructuur-data': <g fill="none" stroke={stroke} strokeWidth={sw}><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6"/><path d="M5 12v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"/></g>,
     'monitoring-evaluatie': <g fill="none" stroke={stroke} strokeWidth={sw}><circle cx="12" cy="12" r="9"/><path d="M12 12V5M12 12l5 3"/></g>,
     'inkoop-leveranciers': <g fill="none" stroke={stroke} strokeWidth={sw}><path d="M4 7h16l-1 12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></g>,
+    'duurzaamheid': <g fill="none" stroke={stroke} strokeWidth={sw}><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></g>,
   };
   return (
     <svg viewBox="0 0 24 24" className="domain-icon" aria-hidden="true">
@@ -107,16 +108,27 @@ function Brandbar() {
 
 /* ===== Navbar ===== */
 function Navbar({ route, theme, setTheme }) {
+  const [dropOpen, setDropOpen] = useState(false);
+
   const items = [
     { id: '/', label: 'Home' },
     { id: '/domeinen', label: 'Domeinen' },
     { id: '/practices', label: 'Good Practices' },
-    { id: '/over', label: 'Over dit raamwerk' },
   ];
+
+  const overSubItems = [
+    { id: '/over', label: 'Over dit raamwerk' },
+    { id: '/bronnen', label: 'Bronnen' },
+    { id: '/begrippenlijst', label: 'Begrippenlijst' },
+  ];
+
   const isActive = (id) => {
     if (id === '/') return route === '/' || route === '';
     return route === id || route.startsWith(id + '/');
   };
+
+  const overActive = ['/over', '/bronnen', '/begrippenlijst'].some(id => isActive(id));
+
   return (
     <nav className="navbar">
       <div className="container nav-inner">
@@ -130,13 +142,41 @@ function Navbar({ route, theme, setTheme }) {
               {it.label}
             </button>
           ))}
+
+          <div
+            className="nav-dropdown-wrap"
+            onMouseEnter={() => setDropOpen(true)}
+            onMouseLeave={() => setDropOpen(false)}
+          >
+            <button
+              className={'nav-link' + (overActive ? ' active' : '')}
+              onClick={() => navigate('/over')}
+            >
+              Context
+              <svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" strokeWidth="1.8"
+                style={{ marginLeft: 6, flexShrink: 0, transition: 'transform .15s', transform: dropOpen ? 'rotate(180deg)' : 'none' }}>
+                <path d="M1 1l4 4 4-4"/>
+              </svg>
+            </button>
+
+            {dropOpen && (
+              <div className="nav-dropdown">
+                {overSubItems.map(sub => (
+                  <button
+                    key={sub.id}
+                    className={'nav-dropdown-item' + (isActive(sub.id) ? ' active' : '')}
+                    onClick={() => { navigate(sub.id); setDropOpen(false); }}
+                  >
+                    {sub.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         <div className="nav-actions" style={{ gap: 8 }}>
           <button className="nav-suggest" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} title="Thema wisselen" aria-label="Thema wisselen">
             {theme === 'dark' ? <Icon.Sun/> : <Icon.Moon/>}
-          </button>
-          <button className="nav-suggest" onClick={() => alert('Bedankt! Suggesties komen straks in een formulier.')}>
-            <Icon.Suggest/> Suggestie indienen
           </button>
         </div>
       </div>
@@ -169,9 +209,9 @@ function Footer() {
           <div>
             <h4>Contact</h4>
             <ul>
-              <li><a href="#">cio-rijk@minbzk.nl</a></li>
-              <li><a href="#">Algoritmeregister</a></li>
-              <li><a href="#">Toegankelijkheid</a></li>
+              <li><a href="#">placeholder: email</a></li>
+              <li><a href="#">placeholder: ICTU</a></li>
+              <li><a href="#">placeholder: ADC</a></li>
             </ul>
           </div>
         </div>

@@ -23,6 +23,27 @@ practices:
   - model-deployment
   - llmops-monitoring
   - schaalbaarheid-productie
+samenhang_blokken:
+  - naam: Beveiliging
+    omschrijving: "Elke infrastructuurkeuze heeft directe beveiligingsimplicaties. BIO2-compliance is verplicht. AI-specifieke risico's (prompt injection, data exfiltration) vereisen pentesting, SBOM's en zero-trust-architectuur. De Cyberbeveiligingswet (NIS2-implementatie) treedt in het voorjaar van 2026 in werking."
+  - naam: Compliance
+    omschrijving: "De EU AI Act (artikel 10) stelt eisen aan data governance. Vanaf augustus 2026 gelden de belangrijkste verplichtingen voor hoog-risico AI-systemen. De infrastructuur moet audit-logging, traceerbaarheid en menselijke interventie technisch ondersteunen."
+  - naam: Digitale soevereiniteit
+    omschrijving: "Direct verbonden met infrastructuurkeuzes. VLAM.AI, GPT-NL, NLAIF en Haven zijn de concrete instrumenten. De Visie Digitale Autonomie en Soevereiniteit (december 2025) is het beleidskader."
+  - naam: Duurzaamheid
+    omschrijving: "AI-rekeninfrastructuur is energie-intensief. Modelroutering, kwantisatie en efficiënt model-serving zijn zowel kosten- als duurzaamheidsmaatregelen. Kies het 'smallest sufficient model' per taak."
+  - naam: Antwoordkwaliteit
+    omschrijving: "De RAG-architectuur, chunking en hybride zoekfunctionaliteit bepalen rechtstreeks de antwoordkwaliteit. Slechte datastructurering leidt direct tot onbetrouwbare antwoorden, ongeacht hoe goed de prompts zijn."
+  - naam: Technische prestaties
+    omschrijving: "Latency, beschikbaarheid en doorvoer worden bepaald door inference-engine, caching en auto-scaling."
+  - naam: Functionaliteit
+    omschrijving: "RAG-pipeline, bronverwijzing en response streaming worden mogelijk gemaakt door de infrastructuur. Herbruikbare bouwblokken met MCP-aansluiting breiden de functionaliteit uit."
+  - naam: Governance
+    omschrijving: "Infrastructuurkeuzes moeten worden verankerd in governance: wie beslist over modelwissels, wie beheert de bronwitte-lijst, wie monitort kwaliteitsmetrieken. Het hernieuwde CIO-stelsel (per 1 januari 2026) voegt CTO-, CDO- en CPO-rollen toe."
+  - naam: Kennis en capaciteit
+    omschrijving: "Het inrichten van deze infrastructuur vereist gespecialiseerde kenniswerkers (data engineers, MLOps-specialisten, AI-architecten)."
+  - naam: Cultuur & Adoptie
+    omschrijving: "Infrastructuurkeuzes beïnvloeden de adoptie. VLAM.AI en GovChat-NL maken AI laagdrempelig beschikbaar voor ambtenaren, wat de adoptie bevordert. Adoptie vereist ook AI-geletterdheid, conform de AI-verordening verplicht vanaf februari 2025."
 sources:
   - visie-digitale-autonomie
   - handreiking-generatieve-ai

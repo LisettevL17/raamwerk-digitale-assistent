@@ -1,0 +1,115 @@
+- id: algoritmekader
+  term: Algoritmekader
+  omschrijving: "Het Algoritmekader van de Rijksoverheid: leidraad en concrete maatregelen voor verantwoorde inzet van algoritmes, inclusief inkoop en governance."
+  seeAlso:
+    - Algoritmeregister
+    - BIO2
+
+- id: algoritmeregister
+  term: Algoritmeregister
+  omschrijving: Openbaar register waarin Nederlandse overheidsorganisaties publiceren welke algoritmes en AI-toepassingen zij gebruiken.
+  seeAlso:
+    - Algoritmekader
+
+- id: avg
+  term: AVG
+  omschrijving: Europese privacywet (Algemene Verordening Gegevensbescherming) die regelt hoe persoonsgegevens verwerkt mogen worden. Bepalend bij iedere AI-toepassing die persoonsgegevens raakt.
+  seeAlso:
+    - DPIA
+
+- id: bio2
+  term: BIO2
+  omschrijving: Het verplichte informatiebeveiligingskader voor de Nederlandse overheid (Baseline Informatiebeveiliging Overheid v1.3). Iedere infrastructuurkeuze wordt hieraan getoetst.
+  seeAlso:
+    - NORA
+
+- id: common-ground
+  term: Common Ground
+  omschrijving: Architectuurprincipes van VNG voor gemeentelijke IT, gericht op het loskoppelen van data en applicaties zodat data eenmaal opgeslagen en meervoudig gebruikt wordt.
+  seeAlso:
+    - GEMMA
+
+- id: dpia
+  term: DPIA
+  omschrijving: "Verplichte voorafgaande risicobeoordeling (Data Protection Impact Assessment) bij gegevensverwerkingen met een hoog privacyrisico. Vrijwel altijd vereist bij AI-systemen."
+  seeAlso:
+    - AVG
+
+- id: eu-ai-act
+  term: EU AI Act
+  omschrijving: "Europese AI-verordening (Verordening (EU) 2024/1689) die AI-systemen indeelt naar risiconiveau en eisen stelt aan hoog-risico toepassingen, inclusief overheidstoepassingen."
+  seeAlso:
+    - Algoritmekader
+
+- id: embedding
+  term: Embedding
+  omschrijving: Numerieke representatie van tekst of beeld als vector, waarmee taalmodellen betekenis kunnen vergelijken. Basis voor zoek- en RAG-toepassingen.
+  seeAlso:
+    - RAG
+
+- id: federatief-leren
+  term: Federatief leren
+  omschrijving: Trainingsmethode (federated learning) waarbij data lokaal blijft en alleen modelupdates gedeeld worden. Relevant bij dataminimalisatie en BIO2-eisen.
+  seeAlso:
+    - BIO2
+
+- id: gemma
+  term: GEMMA
+  omschrijving: Gemeentelijke Modelarchitectuur van VNG Realisatie. Referentiearchitectuur voor de informatievoorziening van gemeenten en vertrekpunt voor gemeentelijke AI-projecten.
+  seeAlso:
+    - Common Ground
+    - NORA
+
+- id: hallucinatie
+  term: Hallucinatie
+  omschrijving: Een door een taalmodel gegenereerd antwoord dat plausibel klinkt maar feitelijk onjuist of verzonnen is. Centraal aandachtspunt bij overheidsinzet.
+  seeAlso:
+    - RAG
+
+- id: llm
+  term: LLM
+  omschrijving: Groot taalmodel (Large Language Model) getraind op tekst, in staat om taal te begrijpen en te genereren. Vormt de kern van moderne digitale assistenten.
+  seeAlso:
+    - VLAM.AI
+    - RAG
+
+- id: nora
+  term: NORA
+  omschrijving: Het overkoepelende architectuurkader voor de Nederlandse overheid (Nederlandse Overheid Referentie Architectuur). Beschrijft principes, standaarden en bouwblokken voor digitale dienstverlening.
+  seeAlso:
+    - GEMMA
+    - BIO2
+
+- id: open-source
+  term: Open source
+  omschrijving: "Software waarvan de broncode publiek beschikbaar is. Kernuitgangspunt van de visie Digitale Autonomie: open waar kan, beschermen waar moet."
+  seeAlso:
+    - Soevereiniteit
+
+- id: rag
+  term: RAG
+  omschrijving: Techniek (Retrieval-Augmented Generation) waarbij een taalmodel voor het antwoorden eerst relevante documenten ophaalt uit een eigen kennisbron. Beperkt hallucinaties en houdt bronnen traceerbaar.
+  seeAlso:
+    - Embedding
+    - Hallucinatie
+
+- id: soevereiniteit
+  term: Soevereiniteit
+  omschrijving: Het vermogen van Nederland om eigen digitale infrastructuur, data en kennis te beheren zonder afhankelijk te zijn van enkele buitenlandse partijen.
+  seeAlso:
+    - Open source
+    - VLAM.AI
+
+- id: verantwoorde-ai
+  term: Verantwoorde AI
+  omschrijving: Verzamelterm voor de principes (transparantie, uitlegbaarheid, non-discriminatie, menselijke regie) waaraan AI-toepassingen binnen de overheid moeten voldoen.
+  seeAlso:
+    - Algoritmekader
+    - EU AI Act
+
+- id: vlam-ai
+  term: VLAM.AI
+  omschrijving: "On-premise GPU-cluster van SSC-ICT (Veilige Lokale AI Modellen) in overheidsdatacenters met API-toegang, vlam-chat en vlam-search. Acht ministeries aangesloten."
+  seeAlso:
+    - LLM
+    - Soevereiniteit

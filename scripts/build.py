@@ -89,6 +89,7 @@ def render_domains(domains):
         lines.append(f'    samenhang: {js_value(d.get("samenhang", []))},')
         lines.append(f'    keuzemomenten: {js_value(d.get("keuzemomenten", ""))},')
         lines.append(f'    samenhang_toelichting: {js_value(d.get("samenhang_toelichting", ""))},')
+        lines.append(f'    samenhang_blokken: {js_value(d.get("samenhang_blokken", []))},')
 
         lines.append('  },')
     lines.append('];')
@@ -109,6 +110,48 @@ def render_practices(practices):
     return '\n'.join(lines)
 
 
+CAT_TO_TYPEKEY = {
+    'Beleidskader':    'beleid',
+    'Richtlijnen':     'richtlijn',
+    'Richtlijn':       'richtlijn',
+    'Verplicht kader': 'verplicht',
+    'Raamwerk':        'raamwerk',
+    'Register':        'register',
+}
+
+
+def render_bronnen(bronnen):
+    lines = ['window.BRONNEN = [']
+    for b in bronnen:
+        type_key = CAT_TO_TYPEKEY.get(b.get('categorie', ''), 'infra')
+        omschrijving = (b.get('omschrijving') or '').strip().replace('\n', ' ')
+        entry = {
+            'id':           b['id'],
+            'categorie':    b.get('categorie', ''),
+            'typeKey':      type_key,
+            'title':        b['title'],
+            'omschrijving': omschrijving,
+            'url':          b.get('url', ''),
+        }
+        lines.append(f'  {js_value(entry)},')
+    lines.append('];')
+    return '\n'.join(lines)
+
+
+def render_glossary(glossary):
+    lines = ['window.GLOSSARY = [']
+    for g in glossary:
+        entry = {
+            'id':          g['id'],
+            'term':        g['term'],
+            'omschrijving': g.get('omschrijving', ''),
+            'seeAlso':     g.get('seeAlso') or [],
+        }
+        lines.append(f'  {js_value(entry)},')
+    lines.append('];')
+    return '\n'.join(lines)
+
+
 def resolve_sources(sources, bronnen_by_id):
     resolved = []
     for s in sources:
@@ -125,6 +168,7 @@ def main():
     over = load_yaml(os.path.join(CONTENT_DIR, 'context_raamwerk.yaml'))
     bronnen = load_yaml(os.path.join(CONTENT_DIR, 'bronnen.yaml'))
     bronnen_by_id = {b['id']: b for b in bronnen}
+    glossary = load_yaml(os.path.join(CONTENT_DIR, 'glossery.yaml')) or []
 
     domain_files = glob.glob(os.path.join(CONTENT_DIR, 'domains', '*.md'))
     domains = sorted([parse_domain_md(f) for f in domain_files], key=lambda d: d['nr'])
@@ -145,12 +189,14 @@ def main():
         f'const HOME = {js_value(home)};',
         f'const OVER = {js_value(over)};',
         'window.RAAMWERK = { DOMAINS, PHASES, LEVELS, PRACTICES, HOME, OVER };',
+        render_bronnen(bronnen),
+        render_glossary(glossary),
     ])
 
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         f.write(output + '\n')
 
-    print(f'Written {OUTPUT_FILE} ({len(practices)} practices, {len(domains)} domains)')
+    print(f'Written {OUTPUT_FILE} ({len(practices)} practices, {len(domains)} domains, {len(bronnen)} bronnen, {len(glossary)} begrippen)')
 
 
 if __name__ == '__main__':

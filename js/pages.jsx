@@ -1,4 +1,4 @@
-/* global React, navigate, FrameworkDiagram, DomainGlyph, Icon */
+/* global React, navigate, FrameworkDiagram, DomainGlyph, Icon, BronnenLijst */
 const { useState: useS, useMemo: useM } = React;
 
 const RAAM = window.RAAMWERK;
@@ -11,10 +11,10 @@ function boldBeforeColon(text) {
 
 
 /* ============================== COLLAPSIBLE SECTION ============================== */
-function Section({ title, children }) {
-  const [open, setOpen] = useS(false);
+function Section({ title, children, id, defaultOpen = false }) {
+  const [open, setOpen] = useS(defaultOpen);
   return (
-    <div className="section-block">
+    <div id={id} className="section-block" style={{ scrollMarginTop: 80 }}>
       <button className="section-toggle" onClick={() => setOpen(o => !o)}>
         <span>{title}</span>
         <svg className={'section-chevron' + (open ? ' open' : '')} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -98,7 +98,7 @@ function DomeinenPage() {
           <span className="eyebrow">Overzicht</span>
           <h1 style={{ marginTop: 6, fontSize: 38 }}>Domeinen van het raamwerk</h1>
           <p className="lede" style={{ marginTop: 10 }}>
-            Het raamwerk omvat 13 domeinen: vier fundamentele randvoorwaarden en negen onderdelen van de digitale assistent. Klik op een domein voor de volledige beschrijving, good practices en bronnen.
+            Het raamwerk omvat vier fundamentele randvoorwaarden en negen domeinen die samen de digitale assistent vormen. Klik op een domein voor de volledige beschrijving, good practices en bronnen.
           </p>
         </div>
       </div>
@@ -111,7 +111,7 @@ function DomeinenPage() {
       <p style={{ color: 'var(--ink-700)', maxWidth: 780, margin: '0 0 22px' }}>
         {RAAM.HOME.fundamenten_section.description}
       </p>
-      <div className="domain-grid">{fundamenten.map(d => renderCard(d, true))}</div>
+      <div className="domain-grid domain-grid--fundament">{fundamenten.map(d => renderCard(d, true))}</div>
 
       <div id="digitale-assistent" className="section-header" style={{ display: 'flex', alignItems: 'baseline', gap: 16, margin: '48px 0 4px', scrollMarginTop: 24 }}>
         <span className="eyebrow" style={{ fontSize: 13, letterSpacing: 1.6 }}>{RAAM.HOME.assistent_section.label}</span>
@@ -130,6 +130,8 @@ function DomeinenPage() {
 function DomeinDetail({ id }) {
   const d = RAAM.DOMAINS.find(x => x.id === id);
   if (!d) return <div className="container"><h1>Domein niet gevonden</h1></div>;
+  const isFundament = ['governance','infrastructuur-data','cultuur-adoptie','kennis-capaciteit'].includes(d.id);
+  const typeLabel = isFundament ? 'fundament' : 'domein';
   const practices = d.practices && d.practices.length > 0
     ? d.practices.map(id => RAAM.PRACTICES.find(p => p.id === id)).filter(Boolean)
     : RAAM.PRACTICES.filter(p => p.domains.includes(d.id));
@@ -141,39 +143,48 @@ function DomeinDetail({ id }) {
         <span>{d.title}</span>
       </div>
       <div className="detail-header">
-        <span className="eyebrow">Domein {String(d.nr).padStart(2, '0')}</span>
+        <span className="eyebrow">{isFundament ? 'Fundament' : 'Domein'} {String(d.nr).padStart(2, '0')}</span>
         <h1>{d.title}</h1>
         <p className="lede" style={{ fontSize: 19 }}>{d.short}</p>
       </div>
 
-      <div className="detail-grid">
+      <div className="detail-with-toc">
+        <nav className="detail-toc">
+          <p className="toc-heading">Inhoud</p>
+          <ul>
+            {[
+              { id: 'sec-wat', label: `Wat houdt dit ${typeLabel} in?` },
+              { id: 'sec-waarom', label: 'Waarom is het belangrijk?' },
+              ...(d.sources && d.sources.length > 0 ? [{ id: 'sec-kennis', label: 'Basiskennis' }] : []),
+              { id: 'sec-practices', label: 'Good practices' },
+              { id: 'sec-keuze', label: 'Keuzemomenten' },
+              { id: 'sec-samenhang', label: 'Samenhang' },
+            ].map(item => (
+              <li key={item.id}>
+                <button className="toc-link" onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="detail-body">
-          <Section title={`Wat is ${d.title} in een digitale assistent?`}>
+          <Section id="sec-wat" defaultOpen title={`Wat is ${d.title} in een digitale assistent?`}>
             <div dangerouslySetInnerHTML={{ __html: d.wat }} />
           </Section>
 
-          <Section title={`Waarom is ${d.title} belangrijk in een digitale assistent?`}>
+          <Section id="sec-waarom" title={`Waarom is ${d.title} belangrijk in een digitale assistent?`}>
             <div dangerouslySetInnerHTML={{ __html: d.waarom }} />
           </Section>
 
           {d.sources && d.sources.length > 0 && (
-            <Section title="Welke basiskennis is nodig?">
-              <ul className="bronnen-items">
-                {d.sources.map((b, i) => typeof b === 'string' ? (
-                  <li key={i}>{b}</li>
-                ) : (
-                  <li key={i} className="bron-item">
-                    {b.url
-                      ? <a href={b.url} target="_blank" rel="noopener noreferrer">{b.title}</a>
-                      : <span>{b.title}</span>}
-                    <p>{b.omschrijving}</p>
-                  </li>
-                ))}
-              </ul>
+            <Section id="sec-kennis" title="Welke basiskennis is nodig?">
+              <BronnenLijst bronnen={d.sources.filter(b => typeof b !== 'string')} />
             </Section>
           )}
 
-          <Section title="Good practices in dit domein">
+          <Section id="sec-practices" title="Good practices">
             {practices.length === 0 ? (
               <p style={{ color: 'var(--ink-500)' }}>Nog geen good practices in dit domein. Heb je er een? <a href="#">Dien een suggestie in</a>.</p>
             ) : (
@@ -193,15 +204,25 @@ function DomeinDetail({ id }) {
             )}
           </Section>
 
-          <Section title="Keuzemomenten die dit fundament raken">
+          <Section id="sec-keuze" title={`Keuzemomenten die dit ${typeLabel} raken`}>
             {d.keuzemomenten
               ? <div dangerouslySetInnerHTML={{ __html: d.keuzemomenten }} />
               : <p style={{ color: 'var(--ink-500)' }}>Nog geen inhoud toegevoegd.</p>}
           </Section>
 
-          <Section title="Samenhang met andere fundamenten en domeinen">
-            {d.samenhang_toelichting
-              ? <div dangerouslySetInnerHTML={{ __html: d.samenhang_toelichting }} />
+          <Section id="sec-samenhang" title="Samenhang met andere fundamenten en domeinen">
+            {d.samenhang_blokken && d.samenhang_blokken.length > 0
+              ? <div className="samenhang-grid">
+                  {d.samenhang_blokken.map((b, i) => (
+                    <article key={b.naam} className="samenhang-item">
+                      <header className="samenhang-head">
+                        <span className="samenhang-num">{String(i + 1).padStart(2, '0')}</span>
+                        <h3 className="samenhang-title">{b.naam}</h3>
+                      </header>
+                      <p className="samenhang-body">{b.omschrijving}</p>
+                    </article>
+                  ))}
+                </div>
               : <p style={{ color: 'var(--ink-500)' }}>Nog geen inhoud toegevoegd.</p>}
           </Section>
         </div>
@@ -281,9 +302,9 @@ function PracticesPage() {
                 const cnt = RAAM.PRACTICES.filter(p => p.domains.includes(d.id)).length;
                 if (cnt === 0) return null;
                 return (
-                  <button key={d.id} className={'filter-chip' + (selDomains.has(d.id) ? ' active' : '')}
+                  <button key={d.id} className={'filter-chip filter-chip--domain' + (selDomains.has(d.id) ? ' active' : '')}
                           onClick={() => toggle(selDomains, setSelDomains, d.id)}>
-                    {d.title} <span className="count">{cnt}</span>
+                    <DomainGlyph id={d.id} /> {d.title} <span className="count">{cnt}</span>
                   </button>
                 );
               })}
@@ -332,12 +353,12 @@ function PracticesPage() {
                   <div className="tag-row">
                     {p.domains.slice(0,2).map(did => {
                       const dd = RAAM.DOMAINS.find(x => x.id === did);
-                      return <span key={did} className="tag tag-domain">{dd.title}</span>;
+                      return <span key={did} className="tag tag-domain tag-domain--icon" title={dd.title}><DomainGlyph id={did}/></span>;
                     })}
                     {p.phases.map(ph => <span key={ph} className={'tag tag-phase-' + ph.toLowerCase()}>{ph}</span>)}
+                    {p.levels.map(l => <span key={l} className={'tag tag-level-' + l.toLowerCase()}>{l}</span>)}
                   </div>
                   <div className="row-meta">
-                    <span style={{ color: 'var(--ink-500)', fontSize: 12 }}>{p.levels.join(' · ')}</span>
                     <span className="read-more">Lees meer <Icon.Arrow/></span>
                   </div>
                 </a>
@@ -376,18 +397,7 @@ function PracticeDetail({ id }) {
           {p.sources && p.sources.length > 0 && (
             <>
               <h2>Relevante bronnen</h2>
-              <ul className="bronnen-items">
-                {p.sources.map((b, i) => typeof b === 'string' ? (
-                  <li key={i}>{b}</li>
-                ) : (
-                  <li key={i} className="bron-item">
-                    {b.url
-                      ? <a href={b.url} target="_blank" rel="noopener noreferrer">{b.title}</a>
-                      : <span>{b.title}</span>}
-                    <p>{b.omschrijving}</p>
-                  </li>
-                ))}
-              </ul>
+              <BronnenLijst bronnen={p.sources.filter(b => typeof b !== 'string')} />
             </>
           )}
         </div>
@@ -423,36 +433,38 @@ function PracticeDetail({ id }) {
 /* ============================== OVER ============================== */
 function OverPage() {
   const o = RAAM.OVER;
+  const sectionIds = o.sections.map((_, i) => 'over-sec-' + i);
   return (
     <div className="container">
-      <div className="section-title-row" style={{ marginBottom: 18 }}>
-        <div>
-          <span className="eyebrow">{o.eyebrow}</span>
-          <h1 style={{ marginTop: 6, fontSize: 38 }}>{o.title}</h1>
-          <p className="lede" style={{ marginTop: 10 }}>{o.lede}</p>
-        </div>
+      <div className="detail-header">
+        <span className="eyebrow">{o.eyebrow}</span>
+        <h1>{o.title}</h1>
+        <p className="lede" style={{ fontSize: 19 }}>{o.lede}</p>
       </div>
-      <div className="detail-grid">
+
+      <div className="detail-with-toc">
+        <nav className="detail-toc">
+          <p className="toc-heading">Inhoud</p>
+          <ul>
+            {o.sections.map((s, i) => (
+              <li key={i}>
+                <button className="toc-link" onClick={() => document.getElementById(sectionIds[i])?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                  {s.heading}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="detail-body">
           {o.sections.map((s, i) => (
-            <React.Fragment key={i}>
-              <h2>{s.heading}</h2>
+            <Section key={i} id={sectionIds[i]} title={s.heading} defaultOpen={i === 0}>
               {(Array.isArray(s.body) ? s.body : [s.body]).map((p, j) => (
                 <p key={j} style={p.includes('\n') ? { whiteSpace: 'pre-line' } : undefined}>{p}</p>
               ))}
-            </React.Fragment>
+            </Section>
           ))}
         </div>
-        <aside className="detail-side">
-          {o.sidebar.map((item, i) => (
-            <div key={i} className="side-card">
-              <h4>{item.label}</h4>
-              <p style={{ margin: 0 }}>
-                {item.href ? <a href={item.href}>{item.value}</a> : item.value}
-              </p>
-            </div>
-          ))}
-        </aside>
       </div>
     </div>
   );
