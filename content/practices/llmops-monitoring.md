@@ -1,13 +1,13 @@
 ---
 id: llmops-monitoring
-title: Monitoring, evaluatie en LLMOps — meten is weten, ook voor AI
+title: Monitoring, evaluatie en LLMOps - meten is weten, ook voor AI
 summary: >
   LLMOps werkt wezenlijk anders dan traditioneel applicatiebeheer. Naast latency en
   beschikbaarheid moeten ook antwoordkwaliteit, hallucinaties, tokengebruik en kosten
   worden bewaakt.
 domains: [infrastructuur-data, technische-prestaties, antwoordkwaliteit]
 phases: [Productie]
-levels: [Operationeel, Tactisch]
+levels: [Tactisch]
 sources:
   - langfuse
   - ragas

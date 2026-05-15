@@ -86,9 +86,7 @@ def render_domains(domains):
         lines.append(f'    waarom: {js_value(d["waarom"])},')
         lines.append(f'    sources: {js_value(d["sources"])},')
         lines.append(f'    practices: {js_value(d.get("practices", []))},')
-        lines.append(f'    samenhang: {js_value(d.get("samenhang", []))},')
         lines.append(f'    keuzemomenten: {js_value(d.get("keuzemomenten", ""))},')
-        lines.append(f'    samenhang_toelichting: {js_value(d.get("samenhang_toelichting", ""))},')
         lines.append(f'    samenhang_blokken: {js_value(d.get("samenhang_blokken", []))},')
 
         lines.append('  },')
@@ -138,14 +136,20 @@ def render_bronnen(bronnen):
     return '\n'.join(lines)
 
 
-def render_glossary(glossary):
+def render_glossary(glossary, bronnen_by_id):
     lines = ['window.GLOSSARY = [']
     for g in glossary:
+        raw_refs = g.get('seeAlso') or []
+        see_also = []
+        for ref_id in raw_refs:
+            bron = bronnen_by_id.get(ref_id)
+            if bron:
+                see_also.append({'title': bron['title'], 'url': bron.get('url', '')})
         entry = {
             'id':          g['id'],
             'term':        g['term'],
             'omschrijving': g.get('omschrijving', ''),
-            'seeAlso':     g.get('seeAlso') or [],
+            'seeAlso':     see_also,
         }
         lines.append(f'  {js_value(entry)},')
     lines.append('];')
@@ -190,7 +194,7 @@ def main():
         f'const OVER = {js_value(over)};',
         'window.RAAMWERK = { DOMAINS, PHASES, LEVELS, PRACTICES, HOME, OVER };',
         render_bronnen(bronnen),
-        render_glossary(glossary),
+        render_glossary(glossary, bronnen_by_id),
     ])
 
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:

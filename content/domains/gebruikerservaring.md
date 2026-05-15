@@ -1,7 +1,6 @@
 ---
 id: gebruikerservaring
 nr: 2
-ring: kern
 title: Gebruikservaring en toegankelijkheid
 short: Hoe burger en medewerker de assistent ervaren in de praktijk.
 ---

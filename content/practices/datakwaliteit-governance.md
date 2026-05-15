@@ -1,13 +1,13 @@
 ---
 id: datakwaliteit-governance
-title: Datakwaliteit en governance — de assistent is zo goed als zijn bronnen
+title: Datakwaliteit en governance - de assistent is zo goed als zijn bronnen
 summary: >
   RAG-systemen falen vaker door slechte data-engineering dan door slechte taalmodellen.
   Het structureel betrekken van domeinexperts is de grootste bottleneck en tegelijk
   de belangrijkste succesfactor.
 domains: [infrastructuur-data, antwoordkwaliteit, compliance]
 phases: [Pilot, Productie]
-levels: [Operationeel, Tactisch]
+levels: [Tactisch]
 sources:
   - handreiking-generatieve-ai
   - dcat-ap-nl

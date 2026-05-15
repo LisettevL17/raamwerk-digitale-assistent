@@ -1,7 +1,6 @@
 ---
 id: kennis-capaciteit
 nr: 2
-ring: organisatie
 title: Kennis & capaciteit
 short: Technische competenties, rollen en vaardigheden die een organisatie nodig heeft.
 ---

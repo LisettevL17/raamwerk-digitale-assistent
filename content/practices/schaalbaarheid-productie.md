@@ -1,13 +1,13 @@
 ---
 id: schaalbaarheid-productie
-title: Schaalbaarheid — van pilot naar productie
+title: Schaalbaarheid - van pilot naar productie
 summary: >
   De stap van pilot naar productie lukt alleen met een doordachte aanpak voor
   schaalbaarheid. Auto-scaling, caching en burst-capaciteit bepalen of de dienst
   kan meegroeien met het gebruik.
-domains: [infrastructuur-data, technische-prestaties, governance]
+domains: [infrastructuur-data, technische-prestaties]
 phases: [Productie]
-levels: [Tactisch, Bestuurlijk]
+levels: [Tactisch]
 sources:
   - innovatiebudget-2025
   - haven

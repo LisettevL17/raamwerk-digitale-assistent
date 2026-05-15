@@ -1,7 +1,6 @@
 ---
 id: technische-prestaties
 nr: 3
-ring: kern
 title: Technische Prestaties
 short: Snelheid, beschikbaarheid en efficiëntie van de assistent.
 ---

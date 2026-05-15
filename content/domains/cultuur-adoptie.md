@@ -1,7 +1,6 @@
 ---
 id: cultuur-adoptie
 nr: 1
-ring: organisatie
 title: Cultuur & Adoptie
 short: Het verankeren van de digitale assistent in de organisatiecultuur.
 ---

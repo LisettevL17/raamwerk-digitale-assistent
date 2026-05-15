@@ -170,7 +170,7 @@ function DomeinDetail({ id }) {
         </nav>
 
         <div className="detail-body">
-          <Section id="sec-wat" defaultOpen title={`Wat is ${d.title} in een digitale assistent?`}>
+          <Section id="sec-wat" defaultOpen title={isFundament ? `Wat wordt verstaan onder ${d.title} bij een digitale assistent?` : `Wat is ${d.title} in een digitale assistent?`}>
             <div dangerouslySetInnerHTML={{ __html: d.wat }} />
           </Section>
 
@@ -274,7 +274,7 @@ function PracticesPage() {
           <span className="eyebrow">Praktijk</span>
           <h1 style={{ marginTop: 6, fontSize: 38 }}>Overzicht Good Practices</h1>
           <p className="lede" style={{ marginTop: 10 }}>
-            {RAAM.PRACTICES.length} concrete handvatten, gefilterd uit ervaring van overheidsorganisaties.
+            {RAAM.PRACTICES.length} concrete handvatten, methoden en technieken voor de (door)ontwikkeling van digitale assistenten.
           </p>
         </div>
       </div>

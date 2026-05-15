@@ -1,7 +1,6 @@
 ---
 id: compliance
 nr: 8
-ring: waarborgen
 title: Compliance
 short: Naleving van wet- en regelgeving zoals AVG en AI Act.
 ---

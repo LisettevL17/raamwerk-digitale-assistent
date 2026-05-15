@@ -1,7 +1,6 @@
 ---
 id: beveiliging
 nr: 9
-ring: waarborgen
 title: Beveiliging
 short: Bescherming tegen misbruik, prompt-injection en datalekken.
 ---

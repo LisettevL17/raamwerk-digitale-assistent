@@ -1,7 +1,6 @@
 ---
 id: functionaliteit
 nr: 4
-ring: kern
 title: Functionaliteit
 short: Welke taken en integraties de assistent kan uitvoeren.
 ---

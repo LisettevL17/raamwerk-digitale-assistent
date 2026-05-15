@@ -1,7 +1,6 @@
 ---
 id: ethiek-mensenrechten
 nr: 7
-ring: waarborgen
 title: Ethiek & Mensenrechten
 short: Eerlijke en menswaardige inzet van AI.
 ---

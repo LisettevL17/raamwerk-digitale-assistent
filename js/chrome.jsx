@@ -194,8 +194,8 @@ function Footer() {
             <h4>Raamwerk Digitale Assistenten</h4>
             <p style={{ margin: 0, maxWidth: 480 }}>
               Een handreiking voor overheidsorganisaties om digitale assistenten verantwoord,
-              veilig en effectief in te zetten. Beheerd door het CIO Rijk in samenwerking met
-              uitvoeringsorganisaties.
+              veilig en effectief in te zetten. Beheerd door ICTU in samenwerking met
+              Digicampus en ADC.
             </p>
           </div>
           <div>

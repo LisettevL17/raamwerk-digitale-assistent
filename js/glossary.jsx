@@ -60,13 +60,8 @@ const gloss2Style = {
 
   // ── Entry ───────────────────────────────────────
   entry: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 24px',
-    gap: 24,
     padding: '18px 0',
     borderBottom: '1px solid #EFEFEA',
-    alignItems: 'start',
-    cursor: 'pointer',
     transition: 'background 0.12s, padding 0.12s, box-shadow 0.12s',
   },
   termRow: {
@@ -91,13 +86,7 @@ const gloss2Style = {
     textTransform: 'uppercase', fontWeight: 600,
   },
   seeAlsoLink: {
-    color: '#01689B', textDecoration: 'underline', textDecorationThickness: 1,
-    textUnderlineOffset: 2, fontWeight: 600, cursor: 'pointer',
-  },
-  arrow: {
-    color: '#01689B', fontWeight: 700, fontSize: 18, fontFamily: 'serif',
-    display: 'flex', justifyContent: 'flex-end', paddingTop: 4,
-    transition: 'opacity 0.12s',
+    color: '#01689B', textDecoration: 'none', fontWeight: 600,
   },
 };
 
@@ -215,26 +204,27 @@ function Glossary2() {
                 onMouseEnter={() => setHover(g.term)}
                 onMouseLeave={() => setHover(null)}
               >
-                <div>
-                  <div style={gloss2Style.termRow}>
-                    <h3 style={gloss2Style.term}>{g.term}</h3>
-                  </div>
-                  <p style={gloss2Style.def}>{g.omschrijving}</p>
-
-                  {g.seeAlso && g.seeAlso.length > 0 && (
-                    <div style={gloss2Style.seeAlso}>
-                      <span style={gloss2Style.seeAlsoLabel}>Zie ook</span>
-                      {g.seeAlso.map((s, idx) => (
-                        <React.Fragment key={s}>
-                          <span style={gloss2Style.seeAlsoLink}>{s}</span>
-                          {idx < g.seeAlso.length - 1 && <span style={{color:'#C8CDD3'}}>·</span>}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  )}
+                <div style={gloss2Style.termRow}>
+                  <h3 style={gloss2Style.term}>{g.term}</h3>
                 </div>
+                <p style={gloss2Style.def}>{g.omschrijving}</p>
 
-                <div style={{...gloss2Style.arrow, opacity: isHover ? 1 : 0.35}}>&rarr;</div>
+                {g.seeAlso && g.seeAlso.length > 0 && (
+                  <div style={gloss2Style.seeAlso}>
+                    <span style={gloss2Style.seeAlsoLabel}>Zie ook</span>
+                    {g.seeAlso.map((s, idx) => (
+                      <React.Fragment key={s.title}>
+                        <a
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={gloss2Style.seeAlsoLink}
+                        >{s.title}</a>
+                        {idx < g.seeAlso.length - 1 && <span style={{color:'#C8CDD3'}}>·</span>}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
               </div>
             );
           })}

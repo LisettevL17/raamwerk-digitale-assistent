@@ -1,6 +1,6 @@
 ---
 id: infrastructuur-keuze
-title: Bewuste infrastructuurkeuzen, soeverein waar het moet, flexibel waar het kan
+title: Bewuste infrastructuurkeuze - soeverein waar het moet, flexibel waar het kan
 summary: >
   De keuze voor AI-infrastructuur raakt aan digitale soevereiniteit, compliance en
   continuïteit. Het principe 'open waar kan, beschermen waar moet' vertaalt zich naar
@@ -8,7 +8,7 @@ summary: >
   per segment de passende infrastructuur.
 domains: [infrastructuur-data, digitale-soevereiniteit]
 phases: [Pilot, Productie]
-levels: [Tactisch, Bestuurlijk]
+levels: [Bestuurlijk]
 sources:
   - visie-digitale-autonomie
   - vlam-ai

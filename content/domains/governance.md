@@ -1,7 +1,6 @@
 ---
 id: governance
 nr: 3
-ring: governance
 title: Governance
 short: Sturing, besluitvorming en verantwoordelijkheden rondom AI.
 ---

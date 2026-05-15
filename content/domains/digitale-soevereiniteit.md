@@ -1,7 +1,6 @@
 ---
 id: digitale-soevereiniteit
 nr: 6
-ring: waarborgen
 title: Digitale Soevereiniteit
 short: Controle over data, modellen en infrastructuur.
 ---

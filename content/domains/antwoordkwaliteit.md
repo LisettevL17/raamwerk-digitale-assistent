@@ -1,7 +1,6 @@
 ---
 id: antwoordkwaliteit
 nr: 1
-ring: kern
 title: Antwoordkwaliteit
 short: De mate waarin de assistent correcte en relevante antwoorden geeft.
 ---

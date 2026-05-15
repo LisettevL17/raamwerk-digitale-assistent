@@ -1,7 +1,6 @@
 ---
 id: duurzaamheid
 nr: 5
-ring: kern
 title: Duurzaamheid
 short: Energieverbruik, CO₂-uitstoot en circulaire inzet van de assistent.
 ---

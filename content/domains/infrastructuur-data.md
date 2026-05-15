@@ -1,20 +1,8 @@
 ---
 id: infrastructuur-data
 nr: 4
-ring: governance
 title: Infrastructuur & Data
 short: "De technische fundering: rekenkracht, opslag, en data-pipelines."
-samenhang:
-  - beveiliging
-  - compliance
-  - digitale-soevereiniteit
-  - duurzaamheid
-  - antwoordkwaliteit
-  - technische-prestaties
-  - functionaliteit
-  - governance
-  - kennis-capaciteit
-  - cultuur-adoptie
 practices:
   - infrastructuur-keuze
   - rag-pijplijn
