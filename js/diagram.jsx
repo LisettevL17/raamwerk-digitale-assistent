@@ -48,9 +48,11 @@ const _RING_SEGS = [
 function FrameworkDiagram({ onSelectDomain, onSelectAll }) {
   const SIZE = 560;
   const cx = SIZE / 2, cy = SIZE / 2;
+  // Outer edge (outOut) stays ~constant between states — the rings just
+  // thin out and shift outward to make room for the 9 chips when opened.
   const RADII = useMemoD(() => ({
-    closed: { midIn: 75,  midOut: 150, outIn: 150, outOut: 220 },
-    open:   { midIn: 175, midOut: 220, outIn: 230, outOut: 280 },
+    closed: { midIn: 95,  midOut: 180, outIn: 180, outOut: 268 },
+    open:   { midIn: 170, midOut: 215, outIn: 225, outOut: 270 },
   }), []);
   const radii = useRefD({ ...RADII.closed });
   const rOrbit = 116;
@@ -193,7 +195,7 @@ function FrameworkDiagram({ onSelectDomain, onSelectAll }) {
         </defs>
 
         {/* Soft base disc */}
-        <circle ref={baseCircleRef} cx={cx} cy={cy} r={220}
+        <circle ref={baseCircleRef} cx={cx} cy={cy} r={268}
                 fill="var(--ro-blue-100)" opacity=".55" pointerEvents="none"/>
 
         {/* 4 fundament half-rings (animate radii via GSAP) */}
